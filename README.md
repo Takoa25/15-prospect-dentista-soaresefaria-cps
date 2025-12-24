@@ -1,6 +1,6 @@
-# Street Fitness - Website Institucional e Landing Page
+# Soares & Faria Odontologia - Website Institucional e Landing Page
 
-Template moderno e responsivo para academias de ginástica, com arquitetura white-label totalmente configurável.
+Template moderno, elegante e de alta performance para clínicas odontológicas, com arquitetura white-label totalmente configurável via `Content.ts`.
 
 ## 🚀 Início Rápido
 
@@ -20,19 +20,15 @@ npm run build
 ```
 /
 ├── src/
-│   ├── components/          # Componentes React
-│   │   ├── Hero.tsx
-│   │   ├── SEO.tsx
-│   │   ├── ErrorBoundary.tsx
-│   │   └── ScrollReveal.tsx
-│   ├── Content.ts          # ⭐ CONFIGURAÇÃO PRINCIPAL
+│   ├── components/          # Componentes React (Hero, About, Team, etc.)
+│   ├── Content.ts          # ⭐ CONFIGURAÇÃO PRINCIPAL (Cores, Textos, Imagens)
 │   ├── types.ts            # TypeScript interfaces
-│   ├── index.css           # CSS global + variáveis
-│   └── MainPage.tsx        # Layout principal
+│   ├── index.css           # CSS global + variáveis sincronizadas
+│   └── MainPage.tsx        # Layout principal e fluxo da página
 ├── public/
-│   └── images/            # Todas as imagens do site
+│   └── images/            # Pasta central de imagens (WebP otimizado)
 ├── App.tsx
-├── index.tsx
+├── main.tsx
 └── index.html
 ```
 
@@ -40,126 +36,86 @@ npm run build
 
 ### 1. Editar `src/Content.ts`
 
-Este é o **único arquivo** que você precisa editar para personalizar o site:
+Este é o **único arquivo** que você precisa editar para personalizar completamente o site:
 
 ```typescript
 export const content: ContentConfig = {
-  // Cores
+  // Cores do Tema (Injetadas via CSS Variables)
   colors: {
-    primary: '#FFC857',      // Cor principal
-    primaryDark: '#ffbd37',  // Hover
+    primary: '#0ea5e9',      // Cor principal (ex: Azul)
+    primaryDark: '#0284c7',  // Hover e variantes escuras
     // ...
   },
   
-  // Informações da empresa
+  // Informações da clínica
   infos: {
-    name: "Athlo",
-    phone: "(11) 99999-9999",
-    whatsapp: "5511999999999",
-    email: "contato@athlo.com.br",
-    address: "Rua dos Atletas, 123",
+    name: "Soares & Faria Odontologia",
+    phone: "(19) 99563-2393",
+    whatsapp: "5519995632393",
     // ...
   },
   
-  // Textos do Hero
-  hero: {
-    headline: {
-      line1: "ONDE ATLETAS",
-      line2: "SÃO FORMADOS",
-    },
-    // ...
-  },
-  // ... e todas as outras seções
+  // Imagens e Seções
+  // Basta alterar os caminhos ou textos nas seções desejadas (hero, about, team, etc.)
 }
 ```
 
-### 2. Substituir Imagens
+### 2. Central de Imagens (`public/images/`)
 
-Coloque suas imagens em `public/images/` mantendo os nomes:
+O projeto utiliza imagens em formato **WebP** para máxima performance. Recomendamos manter os seguintes nomes e dimensões:
 
-- `hero-background.jpg` - Fundo do Hero (1920x1080)
-- `member1.jpg` - `member4.jpg` - Avatares de membros
-- `partner1.png` - `partner5.png` - Logos de parceiros
-- `about.jpg` - Imagem da seção Sobre
-- E outras conforme `Content.ts`
+- `hero-desktop.webp` (1920x1080) / `hero-mobile.webp` (1080x1920)
+- `about.webp` - Foto principal da clínica/doutores (800x1000)
+- `service1.webp` até `service5.webp` - Cards de especialidades (800x600)
+- `team1.webp`, `team2.webp` - Fotos da equipe (800x1066)
+- `testimonial1.webp` até `testimonial5.webp` - Avatares (300x300)
+- `before_after1.webp` até `before_after8.webp` - Casos de sucesso (826x368)
 
-### 3. Atualizar Cores no CSS
+### 3. Sincronização de Cores
 
-Edite `src/index.css` (linhas 10-16) para coincidir com `Content.ts`:
+Edite `src/index.css` (linhas 10-16) para coincidir com a cor `primary` definida no `Content.ts`:
 
 ```css
 :root {
-  --color-primary: #FFC857;  /* Mesma cor do Content.ts */
-  --color-primary-dark: #ffbd37;
-  /* ... */
+  --color-primary: #0ea5e9;  /* Mesma cor do Content.ts */
+  --color-primary-dark: #0284c7;
 }
 ```
 
-## 🎨 Personalização Avançada
+## 🎨 Funcionalidades do Template
 
-### Ativar/Desativar Seções
-
-Em `Content.ts`, cada seção tem um `enabled: boolean`:
-
-```typescript
-hero: {
-  enabled: true,  // true = mostrar, false = esconder
-  // ...
-},
-```
-
-### Adicionar Novos Componentes
-
-1. Criar em `src/components/MeuComponente.tsx`
-2. Importar e adicionar no `src/MainPage.tsx`
-3. Configurar dados em `src/Content.ts`
+- **Arquitetura SST**: Single Source of Truth via `Content.ts`.
+- **Animações Premium**: Framer Motion e ScrollReveal integrados.
+- **SEO Otimizado**: Meta tags dinâmicas e JSON-LD p/ busca local.
+- **Scroll Suave**: Integração com Lenis Scroll para experiência luxuosa.
+- **Bento Grid & Stacking Cards**: Layouts modernos para serviços e diferenciais.
 
 ## 🛠️ Stack Tecnológica
 
-- **React 19** + **TypeScript**
-- **Vite** (build tool)
-- **Tailwind CSS** (styling)
-- **Framer Motion** (animações)
-- **React Helmet Async** (SEO)
-- **Lucide React** (ícones)
+- **React 18** + **TypeScript**
+- **Vite** (build tool ultra-rápida)
+- **Tailwind CSS** (estilização utilitária)
+- **Framer Motion** (animações de interface)
+- **Lucide React** (biblioteca de ícones leves)
+- **React Helmet Async** (SEO dinâmico)
 
-## 📱 Mobile-First & Responsivo
+## 📱 Responsividade & Performance
 
-O template é 100% responsivo e otimizado para:
-- 📱 Mobile (< 768px)
-- 💻 Tablet (768px - 1024px)
-- 🖥️ Desktop (> 1024px)
+- ✅ 100% Mobile-First
+- ✅ Otimização de imagens WebP
+- ✅ Zero CLS (Cumulative Layout Shift)
+- ✅ Score Lighthouse focado em SEO e Acessibilidade
 
-## ♿ Acessibilidade
-
-- ✅ Semântica HTML correta
-- ✅ Alt text em todas as imagens
-- ✅ Contraste de cores WCAG AA
-- ✅ Navegação por teclado
-- ✅ ARIA labels
-- ✅ Focus states visíveis
-
-## 🔒 Segurança
-
-- Content Security Policy (CSP) configurado
-- Proteção contra XSS
-- Headers de segurança
-
-## 🚢 Deploy
-
-### Netlify (Recomendado)
+## 🚢 Deploy (Netlify)
 
 1. Build command: `npm run build`
 2. Publish directory: `dist`
-3. Criar arquivo `public/_redirects`:
-   ```
-   /*    /index.html   200
-   ```
+3. O projeto já inclui o `netlify.toml` com headers de segurança (HSTS, CSP, XSS protection).
 
 ## 📄 Licença
 
-Desenvolvido pela **TAKOA Digital**
+Desenvolvido pela **TAKOA Digital** — Consultoria e Desenvolvimento Web.
 
 ---
 
-**Dúvidas?** Consulte o `INTERNAL_README.md` para documentação técnica completa.
+**Dúvidas?** Entre em contato com a equipe técnica da TAKOA.
