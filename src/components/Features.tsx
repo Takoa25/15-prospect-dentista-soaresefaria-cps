@@ -123,7 +123,7 @@ const Features: React.FC = () => {
             <div
                 ref={containerRef}
                 className="relative w-full overflow-visible"
-                style={{ height: isMobile ? '600vh' : '480vh' }}
+                style={{ height: isMobile ? '600vh' : '400vh' }}
             >
                 <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start overflow-visible bg-slate-50/50">
                     <motion.div
@@ -151,10 +151,12 @@ const Features: React.FC = () => {
 
                     {mainCards.map((card, i) => {
                         const totalSlots = mainCards.length;
-                        const endValue = 0.90;
-                        const slotSize = (endValue - 0.08) / totalSlots;
-                        const start = 0.08 + (i * slotSize);
-                        const end = 0.08 + ((i + 1) * slotSize);
+                        const totalEnd = isMobile ? 0.95 : 0.85; // Onde tudo termina
+                        const startOffset = 0.08;
+                        const slotSize = (totalEnd - startOffset) / totalSlots;
+
+                        const start = startOffset + (i * slotSize);
+                        const end = startOffset + ((i + 1) * slotSize);
 
                         return (
                             <StackingCard
@@ -166,7 +168,7 @@ const Features: React.FC = () => {
                                 url={card.image}
                                 color={card.color || "#FFFFFF"}
                                 progress={scrollYProgress}
-                                range={[start, end, endValue]}
+                                range={[start, end, totalEnd]}
                                 ctaText="Agendar Consulta"
                                 onCtaClick={() => {
                                     const message = encodeURIComponent(card.whatsappMessage || `Olá! Vim pelo site e quero agendar um(a) ${card.title}.`);

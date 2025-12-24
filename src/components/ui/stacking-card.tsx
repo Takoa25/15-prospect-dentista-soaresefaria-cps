@@ -35,6 +35,8 @@ export const StackingCard = ({
     const end = range[1];
     const absoluteEnd = range[2];
     const isLast = i === total - 1;
+    const isPenultimate = i === total - 2;
+    const shouldRemainStatic = isLast || isPenultimate;
 
     const [isMobile, setIsMobile] = useState(false);
 
@@ -55,18 +57,18 @@ export const StackingCard = ({
     );
 
     // 2. Escala e Profundidade 3D Progressiva
-    // A animação acontece enquanto o deck está sendo montado, mas PARA NO ABSOLUTE END (1.0).
+    // Removemos a escala do penúltimo e último card para suavizar o encerramento
     const scale = useTransform(
         progress,
-        [start, end, absoluteEnd],
-        [1, 1, isLast ? 1 : 1 - (total - i) * 0.05]
+        [start, end],
+        [1, shouldRemainStatic ? 1 : 1 - (total - i) * 0.05]
     );
 
-    // Brilho: O último card não escurece nunca.
+    // Brilho: Mantém 100% para os dois últimos cards
     const brightness = useTransform(
         progress,
-        [start, end, absoluteEnd],
-        ["brightness(100%)", "brightness(100%)", isLast ? "brightness(100%)" : `brightness(${80 - (total - i) * 5}%)`]
+        [start, end],
+        ["brightness(100%)", shouldRemainStatic ? "brightness(100%)" : `brightness(${80 - (total - i) * 5}%)`]
     );
 
     // Fade in suave
