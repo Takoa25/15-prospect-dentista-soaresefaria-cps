@@ -1,6 +1,5 @@
-'use client';
+import React, { ReactNode, useState, useEffect } from 'react';
 import { useTransform, motion, MotionValue } from 'framer-motion';
-import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 interface CardProps {
@@ -37,10 +36,21 @@ export const StackingCard = ({
     const absoluteEnd = range[2];
     const isLast = i === total - 1;
 
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    const entranceWindow = isMobile ? 0.15 : 0.08;
+
     // 1. Posição Vertical (Entrada)
     const yMovement = useTransform(
         progress,
-        [start - 0.08, start],
+        [start - entranceWindow, start],
         ["120vh", "0vh"]
     );
 
@@ -62,7 +72,7 @@ export const StackingCard = ({
     // Fade in suave
     const opacity = useTransform(
         progress,
-        [start - 0.08, start],
+        [start - entranceWindow, start],
         [0, 1]
     );
 

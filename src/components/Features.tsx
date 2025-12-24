@@ -97,6 +97,15 @@ const Features: React.FC = () => {
         offset: ['start start', 'end end'],
     });
 
+    const [isMobile, setIsMobile] = React.useState(false);
+
+    React.useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
     if (!features.enabled) return null;
 
     const { cards, secondaryServices, viewMoreText } = features;
@@ -114,7 +123,7 @@ const Features: React.FC = () => {
             <div
                 ref={containerRef}
                 className="relative w-full overflow-visible"
-                style={{ height: '380vh' }}
+                style={{ height: isMobile ? '600vh' : '480vh' }}
             >
                 <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start overflow-visible bg-slate-50/50">
                     <motion.div
