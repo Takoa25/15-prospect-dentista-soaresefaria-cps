@@ -125,7 +125,7 @@ const Features: React.FC = () => {
                 className="relative w-full overflow-visible"
                 style={{ height: isMobile ? '600vh' : '400vh' }}
             >
-                <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-start overflow-visible bg-slate-50/50">
+                <div className="sticky top-0 h-[100dvh] w-full flex flex-col items-center justify-start overflow-visible bg-slate-50/50">
                     <motion.div
                         style={{ opacity: headerOpacity, y: headerY }}
                         className="container-custom absolute top-[16vh] z-0"

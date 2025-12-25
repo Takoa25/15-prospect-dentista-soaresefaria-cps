@@ -32,7 +32,15 @@ const MainPage: React.FC = () => {
 
     return (
         <HelmetProvider>
-            <ReactLenis root>
+            <ReactLenis root options={{
+                smoothWheel: true,
+                syncTouch: true,
+                // Desativa o hijacking de scroll no touch para permitir o momentum nativo do mobile
+                //@ts-ignore
+                smoothTouch: false,
+                touchMultiplier: 1.5,
+                lerp: 0.1
+            }}>
                 <div className="min-h-screen bg-white text-slate-900 selection:bg-primary selection:text-black">
                     <SEO />
                     <StickyNavbar />
