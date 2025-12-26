@@ -140,9 +140,6 @@ const BeforeAfter: React.FC = () => {
                             >
                                 <ChevronRight size={24} strokeWidth={2.5} />
                             </button>
-                            <span className="ml-2 text-neutral-300 font-grotesk font-bold text-xs uppercase tracking-widest hidden md:block">
-                                Arraste ou use as setas
-                            </span>
                         </ScrollReveal>
                     </div>
 

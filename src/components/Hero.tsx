@@ -221,7 +221,7 @@ const Hero: React.FC = () => {
                                 initial={{ opacity: 0, y: 50 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.8, delay: 0.2 }}
-                                className="font-inter font-bold text-[10vw] md:text-[5vw] lg:text-[100px] xl:text-[100px] leading-[0.85] text-white tracking-tight break-words whitespace-pre-line"
+                                className="font-inter font-bold text-[10vw] md:text-[5vw] lg:text-[90px] xl:text-[90px] leading-[0.85] text-white tracking-tight break-words whitespace-pre-line"
                             >
                                 {hero.headline.line1}
                             </motion.h1>
@@ -231,7 +231,7 @@ const Hero: React.FC = () => {
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8, delay: 0.4 }}
-                                    className="font-inter font-bold text-[10vw] md:text-[5vw] lg:text-[100px] xl:text-[100px] leading-[0.85] text-white tracking-tight break-words whitespace-pre-line"
+                                    className="font-inter font-bold text-[10vw] md:text-[5vw] lg:text-[90px] xl:text-[90px] leading-[0.85] text-white tracking-tight break-words whitespace-pre-line"
                                 >
                                     {hero.headline.line2}
                                 </motion.h1>
@@ -242,7 +242,7 @@ const Hero: React.FC = () => {
                                     initial={{ opacity: 0, y: 50 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ duration: 0.8, delay: 0.6 }}
-                                    className="font-inter font-bold text-[10vw] md:text-[5vw] lg:text-[100px] xl:text-[100px] leading-[0.85] text-white tracking-tight break-words whitespace-pre-line"
+                                    className="font-inter font-bold text-[10vw] md:text-[5vw] lg:text-[90px] xl:text-[90px] leading-[0.85] text-white tracking-tight break-words whitespace-pre-line"
                                 >
                                     {hero.headline.line3}
                                 </motion.h1>
