@@ -3,6 +3,69 @@ import { content } from '../Content';
 import ScrollReveal from './ScrollReveal';
 import { MapPin, Clock, ChevronRight } from 'lucide-react';
 
+// Subcomponente para isolar lógica de IntersectionObserver e evitar re-renders desnecessários do pai
+const MapContainer = ({
+    isMapInteractive,
+    setIsMapInteractive,
+    infos
+}: {
+    isMapInteractive: boolean,
+    setIsMapInteractive: (v: boolean) => void,
+    infos: any
+}) => {
+    const mapRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                // Se o mapa sair COMPLETAMENTE da tela (visibilidade < 10%), reativa a proteção
+                if (!entry.isIntersecting) {
+                    setIsMapInteractive(false);
+                }
+            },
+            { threshold: 0.1 } // 10% visível
+        );
+
+        if (mapRef.current) {
+            observer.observe(mapRef.current);
+        }
+
+        return () => observer.disconnect();
+    }, [setIsMapInteractive]);
+
+    return (
+        <div
+            ref={mapRef}
+            className="h-[400px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-sm border border-neutral-200 relative group"
+        >
+            {/* Overlay de Proteção (Apenas Mobile/Tablet - Hidden no Desktop) */}
+            <div
+                className={`lg:hidden absolute inset-0 z-10 flex items-center justify-center bg-black/5 transition-opacity duration-300 ${isMapInteractive ? 'opacity-0 pointer-events-none' : 'opacity-100 cursor-pointer'}`}
+                onClick={() => setIsMapInteractive(true)}
+                onTouchStart={() => {
+                    // Deixa o scroll nativo ocorrer se não estiver interativo
+                }}
+            >
+                <span className={`bg-black/90 backdrop-blur text-white font-grotesk font-bold px-4 py-2 rounded-full shadow-lg text-sm transition-transform transform ${isMapInteractive ? 'scale-90' : 'scale-100'}`}>
+                    Clique para interagir
+                </span>
+            </div>
+
+            <iframe
+                src={infos.mapsEmbed}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className={`w-full h-full transition-all duration-500 ${isMapInteractive ? 'pointer-events-auto grayscale-0' : 'pointer-events-none grayscale lg:pointer-events-auto lg:grayscale-0'}`}
+                title="Localização da Clínica"
+            ></iframe>
+        </div>
+    );
+};
+
 const Location: React.FC = () => {
     const { location, infos, faq } = content;
     const [isMapInteractive, setIsMapInteractive] = React.useState(false);
@@ -94,36 +157,11 @@ const Location: React.FC = () => {
 
                     {/* Map Column */}
                     <ScrollReveal delay={0.2} className="h-full">
-                        <div
-                            className="h-[400px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-sm border border-neutral-200 relative group"
-                        >
-                            {/* Overlay de Proteção (Apenas Mobile/Tablet - Hidden no Desktop) */}
-                            <div
-                                className={`lg:hidden absolute inset-0 z-10 flex items-center justify-center bg-black/5 transition-opacity duration-300 ${isMapInteractive ? 'opacity-0 pointer-events-none' : 'opacity-100 cursor-pointer'}`}
-                                onClick={() => setIsMapInteractive(true)}
-                                onTouchStart={() => {
-                                    if (!isMapInteractive) {
-                                        // Deixa o scroll nativo ocorrer
-                                    }
-                                }}
-                            >
-                                <span className={`bg-white/90 backdrop-blur text-black font-grotesk font-bold px-4 py-2 rounded-full shadow-lg text-sm transition-transform transform ${isMapInteractive ? 'scale-90' : 'scale-100'}`}>
-                                    Clique para interagir
-                                </span>
-                            </div>
-
-                            <iframe
-                                src={infos.mapsEmbed}
-                                width="100%"
-                                height="100%"
-                                style={{ border: 0 }}
-                                allowFullScreen
-                                loading="lazy"
-                                referrerPolicy="no-referrer-when-downgrade"
-                                className={`w-full h-full transition-all duration-500 ${isMapInteractive ? 'pointer-events-auto grayscale-0' : 'pointer-events-none grayscale lg:pointer-events-auto lg:grayscale-0'}`}
-                                title="Localização da Clínica"
-                            ></iframe>
-                        </div>
+                        <MapContainer
+                            isMapInteractive={isMapInteractive}
+                            setIsMapInteractive={setIsMapInteractive}
+                            infos={infos}
+                        />
                     </ScrollReveal>
                 </div>
             </div>
