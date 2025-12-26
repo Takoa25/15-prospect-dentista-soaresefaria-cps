@@ -35,11 +35,10 @@ const MainPage: React.FC = () => {
             <ReactLenis root options={{
                 smoothWheel: true,
                 syncTouch: true,
-                // Desativa o hijacking de scroll no touch para permitir o momentum nativo do mobile
-                //@ts-ignore
-                smoothTouch: false,
-                touchMultiplier: 1.5,
-                lerp: 0.1
+                touchMultiplier: 1.5, // Controla a velocidade do scroll no touch
+                lerp: 0.08, // Aumenta o "peso" do scroll para evitar estilingadas
+                duration: 1.2,
+                wheelMultiplier: 1.2
             }}>
                 <div className="min-h-screen bg-white text-slate-900 selection:bg-primary selection:text-black">
                     <SEO />

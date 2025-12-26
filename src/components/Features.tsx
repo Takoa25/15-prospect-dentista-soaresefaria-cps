@@ -169,6 +169,7 @@ const Features: React.FC = () => {
                                 color={card.color || "#FFFFFF"}
                                 progress={scrollYProgress}
                                 range={[start, end, totalEnd]}
+                                entranceSize={slotSize}
                                 ctaText="Agendar Consulta"
                                 onCtaClick={() => {
                                     const message = encodeURIComponent(card.whatsappMessage || `Olá! Vim pelo site e quero agendar um(a) ${card.title}.`);

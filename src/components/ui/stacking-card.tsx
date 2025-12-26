@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect } from 'react';
+import React, { ReactNode } from 'react';
 import { useTransform, motion, MotionValue } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
@@ -11,6 +11,7 @@ interface CardProps {
     color: string;
     progress: MotionValue<number>;
     range: [number, number, number];
+    entranceSize?: number; // Nova prop para sincronia exata
     ctaText?: string;
     onCtaClick?: () => void;
     icon?: ReactNode;
@@ -26,6 +27,7 @@ export const StackingCard = ({
     color,
     progress,
     range,
+    entranceSize,
     ctaText = "Ver mais",
     onCtaClick,
     icon,
@@ -38,21 +40,15 @@ export const StackingCard = ({
     const isPenultimate = i === total - 2;
     const shouldRemainStatic = isLast || isPenultimate;
 
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        const checkMobile = () => setIsMobile(window.innerWidth < 768);
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
-        return () => window.removeEventListener('resize', checkMobile);
-    }, []);
-
-    const entranceWindow = isMobile ? 0.15 : 0.08;
+    // Se entranceSize não for passado, usa um fallback (0.08 é o padrão antigo do desktop)
+    const padding = entranceSize || 0.08;
 
     // 1. Posição Vertical (Entrada)
+    // Sincronia Perfeita: O card começa a entrar (start - padding) exatamente quando o anterior começa a escalar (start_prev)
+    // E termina de entrar (start) exatamente quando o anterior termina de escalar (end_prev = start_curr)
     const yMovement = useTransform(
         progress,
-        [start - entranceWindow, start],
+        [start - padding, start],
         ["120vh", "0vh"]
     );
 
@@ -74,7 +70,7 @@ export const StackingCard = ({
     // Fade in suave
     const opacity = useTransform(
         progress,
-        [start - entranceWindow, start],
+        [start - padding, start],
         [0, 1]
     );
 
