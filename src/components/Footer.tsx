@@ -94,9 +94,14 @@ const Footer: React.FC = () => {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3">
                                 <MapPin size={20} className="text-primary flex-shrink-0 mt-1" />
-                                <span className="text-neutral-400 text-sm">
+                                <a
+                                    href={infos.mapsLink}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-neutral-400 hover:text-primary transition-colors text-sm"
+                                >
                                     {infos.address}
-                                </span>
+                                </a>
                             </li>
                             <li className="flex items-center gap-3">
                                 <Phone size={20} className="text-primary flex-shrink" />

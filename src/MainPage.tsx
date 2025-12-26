@@ -35,8 +35,8 @@ const MainPage: React.FC = () => {
             <ReactLenis root options={{
                 smoothWheel: true,
                 syncTouch: true,
-                touchMultiplier: 1.5, // Controla a velocidade do scroll no touch
-                lerp: 0.08, // Aumenta o "peso" do scroll para evitar estilingadas
+                touchMultiplier: 0.8, // Reduzido para dar sensação de "peso" e controle
+                lerp: 0.06, // Levemente reduzido para mais suavidade
                 duration: 1.2,
                 wheelMultiplier: 1.2
             }}>
