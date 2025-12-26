@@ -34,7 +34,7 @@ const MainPage: React.FC = () => {
         <HelmetProvider>
             <ReactLenis root options={{
                 smoothWheel: true,
-                syncTouch: true,
+                syncTouch: false,
                 touchMultiplier: 2.0, // Reduzido para dar sensação de "peso" e controle
                 lerp: 0.02, // Levemente reduzido para mais suavidade
                 duration: 2.5,
