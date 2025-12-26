@@ -11,7 +11,7 @@ const images = {
     },
     hero: {
         backgroundMobile: "/images/hero-mobile.webp", // 1080x1920px (Retrato)
-        backgroundDesktop: "/images/hero-desktop.webp", // 1920x1080px (Paisagem)
+        backgroundDesktop: "/images/hero-desktop-v2.webp", // 1920x1080px (Paisagem)
     },
     beforeAfter: [ // 826x368px (Horizontal)
         "/images/before_after1.webp",
