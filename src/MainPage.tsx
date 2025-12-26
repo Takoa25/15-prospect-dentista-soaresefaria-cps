@@ -35,7 +35,7 @@ const MainPage: React.FC = () => {
             <ReactLenis root options={{
                 smoothWheel: true,
                 syncTouch: true,
-                touchMultiplier: 1.5, // Reduzido para dar sensação de "peso" e controle
+                touchMultiplier: 2.0, // Reduzido para dar sensação de "peso" e controle
                 lerp: 0.02, // Levemente reduzido para mais suavidade
                 duration: 2.5,
                 wheelMultiplier: 1.2
