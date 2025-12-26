@@ -5,6 +5,7 @@ import { MapPin, Clock, ChevronRight } from 'lucide-react';
 
 const Location: React.FC = () => {
     const { location, infos, faq } = content;
+    const [isMapInteractive, setIsMapInteractive] = React.useState(false);
 
     if (!location.enabled) return null;
 
@@ -93,7 +94,24 @@ const Location: React.FC = () => {
 
                     {/* Map Column */}
                     <ScrollReveal delay={0.2} className="h-full">
-                        <div className="h-[400px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-sm border border-neutral-200 relative group">
+                        <div
+                            className="h-[400px] lg:h-[500px] w-full rounded-3xl overflow-hidden shadow-sm border border-neutral-200 relative group"
+                        >
+                            {/* Overlay de Proteção (Apenas Mobile/Tablet - Hidden no Desktop) */}
+                            <div
+                                className={`lg:hidden absolute inset-0 z-10 flex items-center justify-center bg-black/5 transition-opacity duration-300 ${isMapInteractive ? 'opacity-0 pointer-events-none' : 'opacity-100 cursor-pointer'}`}
+                                onClick={() => setIsMapInteractive(true)}
+                                onTouchStart={() => {
+                                    if (!isMapInteractive) {
+                                        // Deixa o scroll nativo ocorrer
+                                    }
+                                }}
+                            >
+                                <span className={`bg-white/90 backdrop-blur text-black font-grotesk font-bold px-4 py-2 rounded-full shadow-lg text-sm transition-transform transform ${isMapInteractive ? 'scale-90' : 'scale-100'}`}>
+                                    Clique para interagir
+                                </span>
+                            </div>
+
                             <iframe
                                 src={infos.mapsEmbed}
                                 width="100%"
@@ -102,7 +120,7 @@ const Location: React.FC = () => {
                                 allowFullScreen
                                 loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
-                                className="w-full h-full"
+                                className={`w-full h-full transition-all duration-500 ${isMapInteractive ? 'pointer-events-auto grayscale-0' : 'pointer-events-none grayscale lg:pointer-events-auto lg:grayscale-0'}`}
                                 title="Localização da Clínica"
                             ></iframe>
                         </div>
